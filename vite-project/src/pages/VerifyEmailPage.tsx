@@ -77,12 +77,12 @@ const VerifyEmailPage: React.FC = () => {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-lg">📬</span>
-            <h2 className="text-base font-semibold text-gray-900">Check your inbox</h2>
+            <h2 className="text-sm font-bold text-gray-900">Check your inbox</h2>
           </div>
           <p className="text-sm text-gray-500">
             We've sent a verification code to
           </p>
-          <p className="text-sm font-semibold text-violet-600">
+          <p className="text-sm font-bold text-violet-600">
             shaad@college.edu
           </p>
         </div>
@@ -100,7 +100,7 @@ const VerifyEmailPage: React.FC = () => {
               onChange={(e) => handleOtpChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               id={`otp-input-${index}`}
-              className="w-12 h-14 text-center text-lg font-semibold bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-200"
+              className="w-12 h-14 text-center text-lg font-bold bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-400 transition-all duration-200"
               aria-label={`OTP digit ${index + 1}`}
             />
           ))}
@@ -116,7 +116,7 @@ const VerifyEmailPage: React.FC = () => {
             <button
               onClick={handleResend}
               id="resend-otp-btn"
-              className="text-sm text-violet-600 font-medium hover:text-violet-700 transition-colors duration-200 cursor-pointer"
+              className="text-sm text-violet-600 font-semibold hover:text-violet-700 transition-colors duration-200 cursor-pointer"
             >
               Resend Code
             </button>
@@ -124,13 +124,13 @@ const VerifyEmailPage: React.FC = () => {
         </div>
 
         {/* Create Account */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-500 text-sm">
+        <div className="mt-10 text-center">
+          <p className="text-gray-400 text-sm">
             New to University?
           </p>
           <Link
-            to="/"
-            className="text-violet-600 text-sm font-medium hover:text-violet-700 transition-colors duration-200"
+            to="/signup"
+            className="text-violet-600 text-sm font-semibold hover:text-violet-700 transition-colors duration-200"
           >
             Create your free Account
           </Link>

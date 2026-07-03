@@ -4,12 +4,10 @@ import AuthLayout from '../components/auth/AuthLayout';
 import GoogleIcon from '../components/auth/GoogleIcon';
 import signupGradient from '../assets/signup-gradient.jpg';
 
-const SignUpPage: React.FC = () => {
+const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,11 +16,11 @@ const SignUpPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Sign up data:', formData);
+    console.log('Login data:', formData);
   };
 
-  const handleGoogleSignUp = () => {
-    console.log('Google sign up');
+  const handleGoogleLogin = () => {
+    console.log('Google login');
   };
 
   const inputClasses =
@@ -32,85 +30,61 @@ const SignUpPage: React.FC = () => {
     <AuthLayout image={signupGradient}>
       <div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 tracking-tight">
-          Sign up
+          Welcome back
         </h1>
-        <p className="text-gray-500 text-sm mb-6">
-          Welcome back! Login to continue to your workspace!
+        <p className="text-gray-500 text-sm mb-8">
+          Login to continue to your workspace!
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Full Name */}
+          {/* Email */}
           <div>
-            <label htmlFor="fullName" className="block text-xs font-semibold text-gray-700 mb-1">
-              Full Name
+            <label htmlFor="login-email" className="block text-xs font-semibold text-gray-700 mb-1">
+              Email
             </label>
             <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
+              type="email"
+              id="login-email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               placeholder="eg. john@mail.com"
               className={inputClasses}
             />
           </div>
 
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter Your Email"
-              className={inputClasses}
-            />
-          </div>
-
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-xs font-semibold text-gray-700 mb-1">
+            <label htmlFor="login-password" className="block text-xs font-semibold text-gray-700 mb-1">
               Password
             </label>
             <input
               type="password"
-              id="password"
+              id="login-password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter Your Password"
               className={inputClasses}
             />
+            <div className="mt-1.5 text-right">
+              <Link
+                to="/forgot-password"
+                className="text-xs text-violet-600 font-medium hover:text-violet-700 transition-colors duration-200"
+              >
+                Forgot Password?
+              </Link>
+            </div>
           </div>
 
-          {/* Confirm Password */}
-          <div>
-            <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700 mb-1">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Enter Your Password"
-              className={inputClasses}
-            />
-          </div>
-
-          {/* Continue Button */}
+          {/* Login Button */}
           <div className="pt-1">
             <button
               type="submit"
-              id="signup-continue-btn"
+              id="login-btn"
               className="w-full py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 cursor-pointer"
             >
-              Continue
+              Log in
             </button>
           </div>
         </form>
@@ -122,24 +96,24 @@ const SignUpPage: React.FC = () => {
           <div className="flex-1 h-px bg-gray-200" />
         </div>
 
-        {/* Google Sign Up */}
+        {/* Google Login */}
         <button
-          onClick={handleGoogleSignUp}
-          id="google-signup-btn"
+          onClick={handleGoogleLogin}
+          id="google-login-btn"
           className="w-full flex items-center justify-center gap-3 py-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 cursor-pointer"
         >
           <GoogleIcon />
-          Sign up with Google
+          Continue with Google
         </button>
 
-        {/* Login Link */}
+        {/* Sign Up Link */}
         <p className="mt-6 text-center text-sm text-gray-500">
-          Already have an account?{' '}
+          Don't have an account?{' '}
           <Link
-            to="/login"
+            to="/signup"
             className="text-violet-600 font-semibold hover:text-violet-700 transition-colors duration-200"
           >
-            Log in
+            Sign up
           </Link>
         </p>
       </div>
@@ -147,4 +121,4 @@ const SignUpPage: React.FC = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;

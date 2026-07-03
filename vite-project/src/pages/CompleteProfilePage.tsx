@@ -20,24 +20,27 @@ const CompleteProfilePage: React.FC = () => {
     console.log('Profile data:', formData);
   };
 
+  const inputClasses =
+    'w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-400 transition-all duration-200';
+
   const selectClasses =
-    'w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg text-sm text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-200 cursor-pointer';
+    'w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-400 transition-all duration-200 cursor-pointer';
 
   return (
     <AuthLayout image={cosmicGradient}>
       <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 tracking-tight">
           Hey... Shaad!
         </h1>
-        <p className="text-gray-500 text-sm mb-8 leading-relaxed">
+        <p className="text-gray-500 text-sm mb-7 leading-relaxed">
           We are Almost there, Let's complete your<br />
           Student Profile
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Roll No */}
           <div>
-            <label htmlFor="rollNo" className="block text-sm font-medium text-gray-900 mb-1.5">
+            <label htmlFor="rollNo" className="block text-xs font-semibold text-gray-700 mb-1">
               Roll No.
             </label>
             <input
@@ -47,13 +50,13 @@ const CompleteProfilePage: React.FC = () => {
               value={formData.rollNo}
               onChange={handleChange}
               placeholder="eg. XXXXXXXX"
-              className="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-200"
+              className={inputClasses}
             />
           </div>
 
           {/* Department */}
           <div>
-            <label htmlFor="department" className="block text-sm font-medium text-gray-900 mb-1.5">
+            <label htmlFor="department" className="block text-xs font-semibold text-gray-700 mb-1">
               Department
             </label>
             <div className="relative">
@@ -82,7 +85,7 @@ const CompleteProfilePage: React.FC = () => {
 
           {/* Program */}
           <div>
-            <label htmlFor="program" className="block text-sm font-medium text-gray-900 mb-1.5">
+            <label htmlFor="program" className="block text-xs font-semibold text-gray-700 mb-1">
               Program
             </label>
             <div className="relative">
@@ -110,7 +113,7 @@ const CompleteProfilePage: React.FC = () => {
 
           {/* Semester */}
           <div>
-            <label htmlFor="semester" className="block text-sm font-medium text-gray-900 mb-1.5">
+            <label htmlFor="semester" className="block text-xs font-semibold text-gray-700 mb-1">
               Semester
             </label>
             <div className="relative">
@@ -140,12 +143,12 @@ const CompleteProfilePage: React.FC = () => {
           </div>
 
           {/* Continue Button */}
-          <div className="pt-2">
+          <div className="pt-1">
             <Link to="/forgot-password">
               <button
                 type="submit"
                 id="profile-continue-btn"
-                className="w-full py-3.5 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 cursor-pointer"
+                className="w-full py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 cursor-pointer"
               >
                 Continue
               </button>
