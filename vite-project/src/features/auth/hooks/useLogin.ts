@@ -5,7 +5,7 @@ import { login } from '../api/authApi';
 import { useAuth } from '../store/authStore';
 import { getRedirectPath } from '../utils/roleRedirect';
 import type { LoginPayload } from '../types/authTypes';
-import { storage } from '../../../utils/storage';
+import { storage } from '../utils/storage';
 
 export function useLogin() {
   const navigate = useNavigate();

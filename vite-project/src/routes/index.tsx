@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import LoginPage from '../pages/LoginPage';
-import SignUpPage from '../pages/SignUpPage';
-import CompleteProfilePage from '../pages/CompleteProfilePage';
-import ForgotPasswordPage from '../pages/ForgotPasswordPage';
-import VerifyEmailPage from '../pages/VerifyEmailPage';
-import ResetPasswordPage from '../pages/ResetPasswordPage';
-import SessionExpiredPage from '../pages/SessionExpiredPage';
-import DashboardPage from '../pages/DashboardPage';
+import LoginPage from '../features/auth/pages/LoginPage';
+import SignUpPage from '../features/auth/pages/SignUpPage';
+import CompleteProfilePage from '../features/auth/pages/CompleteProfilePage';
+import ForgotPasswordPage from '../features/auth/pages/ForgotPasswordPage';
+import VerifyEmailPage from '../features/auth/pages/VerifyEmailPage';
+import ResetPasswordPage from '../features/auth/pages/ResetPasswordPage';
+import SessionExpiredPage from '../features/auth/pages/SessionExpiredPage';
+import DashboardPage from '../features/auth/pages/DashboardPage';
 import ProtectedRoute from '../features/auth/guards/ProtectedRoute';
 
 const AppRoutes = () => {

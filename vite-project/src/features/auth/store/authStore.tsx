@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useCallback, useMemo, useState } from 'react';
 import type { AuthState, User } from '../types/authTypes';
-import { storage } from '../../../utils/storage';
+import { storage } from '../utils/storage';
 
 interface AuthContextValue extends AuthState {
   isLoading: boolean;

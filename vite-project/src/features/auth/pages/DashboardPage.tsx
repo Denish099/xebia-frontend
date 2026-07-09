@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAuth } from '../features/auth/store/authStore';
-import { useLogout } from '../features/auth/hooks/useLogout';
+import { useAuth } from '../store/authStore';
+import { useLogout } from '../hooks/useLogout';
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();

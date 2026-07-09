@@ -1,4 +1,4 @@
-import type { AuthState } from '../features/auth/types/authTypes';
+import type { AuthState } from '../types/authTypes';
 
 const AUTH_KEY = 'auth_data';
 const REMEMBER_KEY = 'remember_me';

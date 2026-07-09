@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import AuthLayout from '../components/auth/AuthLayout';
-import cosmicGradient from '../assets/cosmic-gradient.jpg';
-import { useResetPassword } from '../features/auth/hooks/useResetPassword';
-import { resetPasswordSchema } from '../utils/validation';
+import AuthLayout from '../components/AuthLayout';
+import cosmicGradient from '../../../assets/cosmic-gradient.jpg';
+import { useResetPassword } from '../hooks/useResetPassword';
+import { resetPasswordSchema } from '../schemas/validation';
 
 const ResetPasswordPage: React.FC = () => {
   const [searchParams] = useSearchParams();

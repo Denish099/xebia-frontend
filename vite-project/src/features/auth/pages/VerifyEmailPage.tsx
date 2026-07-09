@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import AuthLayout from '../components/auth/AuthLayout';
-import cosmicGradient from '../assets/cosmic-gradient.jpg';
+import AuthLayout from '../components/AuthLayout';
+import cosmicGradient from '../../../assets/cosmic-gradient.jpg';
 
 const VerifyEmailPage: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '']);
@@ -27,7 +27,6 @@ const VerifyEmailPage: React.FC = () => {
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Auto-focus next input
     if (value && index < 4) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -73,7 +72,6 @@ const VerifyEmailPage: React.FC = () => {
           Verify Email
         </h1>
 
-        {/* Check Inbox Section */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-lg">📬</span>
@@ -87,7 +85,6 @@ const VerifyEmailPage: React.FC = () => {
           </p>
         </div>
 
-        {/* OTP Input */}
         <div className="flex gap-3 justify-center mb-6" onPaste={handlePaste}>
           {otp.map((digit, index) => (
             <input
@@ -106,7 +103,6 @@ const VerifyEmailPage: React.FC = () => {
           ))}
         </div>
 
-        {/* Resend Timer */}
         <div className="text-center mb-8">
           {timer > 0 ? (
             <p className="text-sm text-gray-400">
@@ -123,7 +119,6 @@ const VerifyEmailPage: React.FC = () => {
           )}
         </div>
 
-        {/* Create Account */}
         <div className="mt-10 text-center">
           <p className="text-gray-400 text-sm">
             New to University?

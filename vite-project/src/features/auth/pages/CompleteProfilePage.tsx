@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthLayout from '../components/auth/AuthLayout';
-import cosmicGradient from '../assets/cosmic-gradient.jpg';
+import AuthLayout from '../components/AuthLayout';
+import cosmicGradient from '../../../assets/cosmic-gradient.jpg';
 
 const CompleteProfilePage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -38,7 +38,6 @@ const CompleteProfilePage: React.FC = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Roll No */}
           <div>
             <label htmlFor="rollNo" className="block text-xs font-semibold text-gray-700 mb-1">
               Roll No.
@@ -54,7 +53,6 @@ const CompleteProfilePage: React.FC = () => {
             />
           </div>
 
-          {/* Department */}
           <div>
             <label htmlFor="department" className="block text-xs font-semibold text-gray-700 mb-1">
               Department
@@ -83,7 +81,6 @@ const CompleteProfilePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Program */}
           <div>
             <label htmlFor="program" className="block text-xs font-semibold text-gray-700 mb-1">
               Program
@@ -111,7 +108,6 @@ const CompleteProfilePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Semester */}
           <div>
             <label htmlFor="semester" className="block text-xs font-semibold text-gray-700 mb-1">
               Semester
@@ -142,7 +138,6 @@ const CompleteProfilePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Continue Button */}
           <div className="pt-1">
             <Link to="/forgot-password">
               <button

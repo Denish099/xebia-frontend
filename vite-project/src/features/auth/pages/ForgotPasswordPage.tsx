@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthLayout from '../components/auth/AuthLayout';
-import cosmicGradient from '../assets/cosmic-gradient.jpg';
-import { useForgotPassword } from '../features/auth/hooks/useForgotPassword';
-import { forgotPasswordSchema } from '../utils/validation';
+import AuthLayout from '../components/AuthLayout';
+import cosmicGradient from '../../../assets/cosmic-gradient.jpg';
+import { useForgotPassword } from '../hooks/useForgotPassword';
+import { forgotPasswordSchema } from '../schemas/validation';
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState('');

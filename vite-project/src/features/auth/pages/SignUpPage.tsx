@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthLayout from '../components/auth/AuthLayout';
-import GoogleIcon from '../components/auth/GoogleIcon';
-import signupGradient from '../assets/signup-gradient.jpg';
-import { useRegister, splitFullName } from '../features/auth/hooks/useRegister';
-import { registerSchema } from '../utils/validation';
+import AuthLayout from '../components/AuthLayout';
+import GoogleIcon from '../components/GoogleIcon';
+import signupGradient from '../../../assets/signup-gradient.jpg';
+import { useRegister, splitFullName } from '../hooks/useRegister';
+import { registerSchema } from '../schemas/validation';
 
 const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState({

@@ -1,6 +1,6 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import { storage } from '../utils/storage';
-import { handleMockRequest } from './mockHandlers';
+import { storage } from '../features/auth/utils/storage';
+import { handleMockRequest } from '../features/auth/services/mockHandlers';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 

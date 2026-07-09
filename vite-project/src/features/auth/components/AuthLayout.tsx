@@ -9,7 +9,6 @@ interface AuthLayoutProps {
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children, image, imageAlt = 'Decorative gradient' }) => {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white">
-      {/* Left Image Panel — constrained to not overwhelm the layout */}
       <div className="w-full lg:w-[45%] xl:w-[42%] p-3 md:p-4 flex-shrink-0">
         <div className="w-full h-56 sm:h-72 md:h-80 lg:h-[calc(100vh-2rem)] rounded-2xl overflow-hidden">
           <img
@@ -20,7 +19,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, image, imageAlt = 'De
         </div>
       </div>
 
-      {/* Right Form Panel */}
       <div className="w-full lg:w-[55%] xl:w-[58%] flex items-center justify-center px-6 py-8 md:px-10 lg:px-16 xl:px-24">
         <div className="w-full max-w-[420px]">
           {children}
