@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthLayout from '../components/AuthLayout';
-import GoogleIcon from '../components/GoogleIcon';
 import signupGradient from '../../../assets/signup-gradient.jpg';
-import { useRegister, splitFullName } from '../hooks/useRegister';
+import { useRegister } from '../hooks/useRegister';
 import { registerSchema } from '../schemas/validation';
 
 const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -41,19 +41,14 @@ const SignUpPage: React.FC = () => {
       return;
     }
 
-    const { firstName, lastName } = splitFullName(formData.fullName);
     registerMutation.mutate({
       email: formData.email,
       password: formData.password,
-      firstName,
-      lastName,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
       tenantId: '',
       universityId: '',
     });
-  };
-
-  const handleGoogleSignUp = () => {
-    console.log('Google sign up');
   };
 
   const inputClasses =
@@ -70,22 +65,41 @@ const SignUpPage: React.FC = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="fullName" className="block text-xs font-semibold text-gray-700 mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              placeholder="eg. john@mail.com"
-              className={inputClasses}
-            />
-            {errors.fullName && (
-              <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
-            )}
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <label htmlFor="firstName" className="block text-xs font-semibold text-gray-700 mb-1">
+                First Name
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="John"
+                className={inputClasses}
+              />
+              {errors.firstName && (
+                <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>
+              )}
+            </div>
+            <div className="flex-1">
+              <label htmlFor="lastName" className="block text-xs font-semibold text-gray-700 mb-1">
+                Last Name
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Doe"
+                className={inputClasses}
+              />
+              {errors.lastName && (
+                <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>
+              )}
+            </div>
           </div>
 
           <div>
@@ -153,21 +167,6 @@ const SignUpPage: React.FC = () => {
             </button>
           </div>
         </form>
-
-        <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="text-xs text-gray-400 font-medium">OR</span>
-          <div className="flex-1 h-px bg-gray-200" />
-        </div>
-
-        <button
-          onClick={handleGoogleSignUp}
-          id="google-signup-btn"
-          className="w-full flex items-center justify-center gap-3 py-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 cursor-pointer"
-        >
-          <GoogleIcon />
-          Sign up with Google
-        </button>
 
         <p className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{' '}

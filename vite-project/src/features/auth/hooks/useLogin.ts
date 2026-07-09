@@ -17,6 +17,9 @@ export function useLogin() {
       setLoading(true);
     },
     onSuccess: (response) => {
+      if (!response.data) {
+        throw new Error((response as { message?: string }).message || 'Login failed. Please check your credentials.');
+      }
       const { id, email, roles, token } = response.data;
       const refreshTokenValue = storage.getRefreshToken() ?? '';
 

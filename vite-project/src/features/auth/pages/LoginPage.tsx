@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthLayout from '../components/AuthLayout';
-import GoogleIcon from '../components/GoogleIcon';
 import signupGradient from '../../../assets/signup-gradient.jpg';
 import { useLogin } from '../hooks/useLogin';
 import { loginSchema } from '../schemas/validation';
@@ -44,10 +43,6 @@ const LoginPage: React.FC = () => {
 
     storage.setRememberMe(rememberMe);
     loginMutation.mutate(formData as LoginFormData);
-  };
-
-  const handleGoogleLogin = () => {
-    console.log('Google login');
   };
 
   const inputClasses =
@@ -128,21 +123,6 @@ const LoginPage: React.FC = () => {
             </button>
           </div>
         </form>
-
-        <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="text-xs text-gray-400 font-medium">OR</span>
-          <div className="flex-1 h-px bg-gray-200" />
-        </div>
-
-        <button
-          onClick={handleGoogleLogin}
-          id="google-login-btn"
-          className="w-full flex items-center justify-center gap-3 py-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 cursor-pointer"
-        >
-          <GoogleIcon />
-          Continue with Google
-        </button>
 
         <p className="mt-6 text-center text-sm text-gray-500">
           Don't have an account?{' '}

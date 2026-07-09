@@ -15,6 +15,9 @@ export function useRegister() {
       setLoading(true);
     },
     onSuccess: (response) => {
+      if (!response.data) {
+        throw new Error((response as { message?: string }).message || 'Signup failed. Please try again.');
+      }
       const { id, email, firstName, lastName, roles } = response.data;
 
       setLogin(
@@ -35,9 +38,3 @@ export function useRegister() {
   });
 }
 
-export function splitFullName(fullName: string): { firstName: string; lastName: string } {
-  const parts = fullName.trim().split(' ');
-  const firstName = parts[0] || '';
-  const lastName = parts.slice(1).join(' ') || '';
-  return { firstName, lastName };
-}
