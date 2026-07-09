@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import AuthLayout from '../components/AuthLayout';
 import cosmicGradient from '../../../assets/cosmic-gradient.jpg';
+import { useAuth } from '../store/authStore';
 
 const VerifyEmailPage: React.FC = () => {
+  const { user } = useAuth();
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '']);
   const [timer, setTimer] = useState(45);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -81,7 +83,7 @@ const VerifyEmailPage: React.FC = () => {
             We've sent a verification code to
           </p>
           <p className="text-sm font-bold text-violet-600">
-            shaad@college.edu
+            {user?.email || 'your email'}
           </p>
         </div>
 
