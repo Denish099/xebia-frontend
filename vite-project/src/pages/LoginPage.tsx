@@ -3,20 +3,47 @@ import { Link } from 'react-router-dom';
 import AuthLayout from '../components/auth/AuthLayout';
 import GoogleIcon from '../components/auth/GoogleIcon';
 import signupGradient from '../assets/signup-gradient.jpg';
+import { useLogin } from '../features/auth/hooks/useLogin';
+import { loginSchema } from '../utils/validation';
+import { storage } from '../utils/storage';
+import type { LoginFormData } from '../utils/validation';
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [rememberMe, setRememberMe] = useState(storage.getRememberMe());
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const loginMutation = useLogin();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login data:', formData);
+    setErrors({});
+
+    const result = loginSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as string;
+        if (!fieldErrors[field]) {
+          fieldErrors[field] = issue.message;
+        }
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+
+    storage.setRememberMe(rememberMe);
+    loginMutation.mutate(formData as LoginFormData);
   };
 
   const handleGoogleLogin = () => {
@@ -37,7 +64,6 @@ const LoginPage: React.FC = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
           <div>
             <label htmlFor="login-email" className="block text-xs font-semibold text-gray-700 mb-1">
               Email
@@ -51,9 +77,11 @@ const LoginPage: React.FC = () => {
               placeholder="eg. john@mail.com"
               className={inputClasses}
             />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
           </div>
 
-          {/* Password */}
           <div>
             <label htmlFor="login-password" className="block text-xs font-semibold text-gray-700 mb-1">
               Password
@@ -67,7 +95,19 @@ const LoginPage: React.FC = () => {
               placeholder="Enter Your Password"
               className={inputClasses}
             />
-            <div className="mt-1.5 text-right">
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+            )}
+            <div className="mt-1.5 flex items-center justify-between">
+              <label className="flex items-center gap-1.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-3.5 h-3.5 rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+                />
+                <span className="text-xs text-gray-500">Remember me</span>
+              </label>
               <Link
                 to="/forgot-password"
                 className="text-xs text-violet-600 font-medium hover:text-violet-700 transition-colors duration-200"
@@ -77,26 +117,24 @@ const LoginPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Login Button */}
           <div className="pt-1">
             <button
               type="submit"
               id="login-btn"
-              className="w-full py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 cursor-pointer"
+              disabled={loginMutation.isPending}
+              className="w-full py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-all duration-200 cursor-pointer"
             >
-              Log in
+              {loginMutation.isPending ? 'Logging in...' : 'Log in'}
             </button>
           </div>
         </form>
 
-        {/* Divider */}
         <div className="flex items-center gap-3 my-5">
           <div className="flex-1 h-px bg-gray-200" />
           <span className="text-xs text-gray-400 font-medium">OR</span>
           <div className="flex-1 h-px bg-gray-200" />
         </div>
 
-        {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
           id="google-login-btn"
@@ -106,7 +144,6 @@ const LoginPage: React.FC = () => {
           Continue with Google
         </button>
 
-        {/* Sign Up Link */}
         <p className="mt-6 text-center text-sm text-gray-500">
           Don't have an account?{' '}
           <Link

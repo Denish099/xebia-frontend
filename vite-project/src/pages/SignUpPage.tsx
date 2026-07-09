@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import AuthLayout from '../components/auth/AuthLayout';
 import GoogleIcon from '../components/auth/GoogleIcon';
 import signupGradient from '../assets/signup-gradient.jpg';
+import { useRegister, splitFullName } from '../features/auth/hooks/useRegister';
+import { registerSchema } from '../utils/validation';
 
 const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -11,14 +13,43 @@ const SignUpPage: React.FC = () => {
     password: '',
     confirmPassword: '',
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const registerMutation = useRegister();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Sign up data:', formData);
+    setErrors({});
+
+    const result = registerSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as string;
+        if (!fieldErrors[field]) {
+          fieldErrors[field] = issue.message;
+        }
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+
+    const { firstName, lastName } = splitFullName(formData.fullName);
+    registerMutation.mutate({
+      email: formData.email,
+      password: formData.password,
+      firstName,
+      lastName,
+      tenantId: '',
+      universityId: '',
+    });
   };
 
   const handleGoogleSignUp = () => {
@@ -39,7 +70,6 @@ const SignUpPage: React.FC = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Full Name */}
           <div>
             <label htmlFor="fullName" className="block text-xs font-semibold text-gray-700 mb-1">
               Full Name
@@ -53,9 +83,11 @@ const SignUpPage: React.FC = () => {
               placeholder="eg. john@mail.com"
               className={inputClasses}
             />
+            {errors.fullName && (
+              <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
+            )}
           </div>
 
-          {/* Email */}
           <div>
             <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1">
               Email
@@ -69,9 +101,11 @@ const SignUpPage: React.FC = () => {
               placeholder="Enter Your Email"
               className={inputClasses}
             />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
           </div>
 
-          {/* Password */}
           <div>
             <label htmlFor="password" className="block text-xs font-semibold text-gray-700 mb-1">
               Password
@@ -85,9 +119,11 @@ const SignUpPage: React.FC = () => {
               placeholder="Enter Your Password"
               className={inputClasses}
             />
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+            )}
           </div>
 
-          {/* Confirm Password */}
           <div>
             <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700 mb-1">
               Confirm Password
@@ -101,28 +137,29 @@ const SignUpPage: React.FC = () => {
               placeholder="Enter Your Password"
               className={inputClasses}
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+            )}
           </div>
 
-          {/* Continue Button */}
           <div className="pt-1">
             <button
               type="submit"
               id="signup-continue-btn"
-              className="w-full py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 cursor-pointer"
+              disabled={registerMutation.isPending}
+              className="w-full py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-all duration-200 cursor-pointer"
             >
-              Continue
+              {registerMutation.isPending ? 'Creating account...' : 'Continue'}
             </button>
           </div>
         </form>
 
-        {/* Divider */}
         <div className="flex items-center gap-3 my-5">
           <div className="flex-1 h-px bg-gray-200" />
           <span className="text-xs text-gray-400 font-medium">OR</span>
           <div className="flex-1 h-px bg-gray-200" />
         </div>
 
-        {/* Google Sign Up */}
         <button
           onClick={handleGoogleSignUp}
           id="google-signup-btn"
@@ -132,7 +169,6 @@ const SignUpPage: React.FC = () => {
           Sign up with Google
         </button>
 
-        {/* Login Link */}
         <p className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{' '}
           <Link
