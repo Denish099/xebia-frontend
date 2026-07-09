@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthLayout from '../components/AuthLayout';
 import cosmicGradient from '../../../assets/cosmic-gradient.jpg';
+import { useAuth } from '../store/authStore';
 
 const CompleteProfilePage: React.FC = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     rollNo: '',
     department: '',
@@ -30,12 +32,17 @@ const CompleteProfilePage: React.FC = () => {
     <AuthLayout image={cosmicGradient}>
       <div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 tracking-tight">
-          Hey... Shaad!
+          Hey... {user?.firstName || 'there'}!
         </h1>
-        <p className="text-gray-500 text-sm mb-7 leading-relaxed">
+        <p className="text-gray-500 text-sm mb-1 leading-relaxed">
           We are Almost there, Let's complete your<br />
           Student Profile
         </p>
+        {user?.email && (
+          <p className="text-gray-400 text-xs mb-7">
+            {user.email}
+          </p>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

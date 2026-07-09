@@ -11,7 +11,7 @@ const SignUpPage: React.FC = () => {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: '',
+
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -138,23 +138,6 @@ const SignUpPage: React.FC = () => {
             )}
           </div>
 
-          <div>
-            <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700 mb-1">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Enter Your Password"
-              className={inputClasses}
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
-            )}
-          </div>
 
           <div className="pt-1">
             <button
